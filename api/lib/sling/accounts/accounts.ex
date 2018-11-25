@@ -36,6 +36,7 @@ defmodule Sling.Accounts do
 
   """
   def get_user!(id), do: Repo.get!(User, id)
+  def get_user(id), do: Repo.get(User, id)
 
   @doc """
   Creates a user.
@@ -50,9 +51,15 @@ defmodule Sling.Accounts do
 
   """
   def create_user(attrs \\ %{}) do
-    %User{}
-    |> User.changeset(attrs)
-    |> Repo.insert()
+    result =
+      %User{}
+      |> User.registration_changeset(attrs)
+      |> Repo.insert()
+
+    case result do
+      {:ok, user} -> {:ok, user}
+      _ -> result
+    end
   end
 
   @doc """
@@ -100,6 +107,12 @@ defmodule Sling.Accounts do
   """
   def change_user(%User{} = user) do
     User.changeset(user, %{})
+  end
+
+  def register_user(attrs \\ %{}) do
+    %User{}
+    |> User.registration_changeset(attrs)
+    |> Repo.insert()
   end
 
   alias Sling.Accounts.Credential

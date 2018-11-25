@@ -8,19 +8,33 @@
 use Mix.Config
 
 config :sling,
-  ecto_repos: [Sling.Repo]
+       ecto_repos: [Sling.Repo]
 
 # Configures the endpoint
-config :sling, SlingWeb.Endpoint,
-  url: [host: "localhost"],
-  secret_key_base: "5ACtsabgQEmBOTXTYSEaAI4IrJ1LclDsvKRnR+BltFGIoLpsly6jitCqkHCStWmB",
-  render_errors: [view: SlingWeb.ErrorView, accepts: ~w(json)],
-  pubsub: [name: Sling.PubSub, adapter: Phoenix.PubSub.PG2]
+config :sling,
+       SlingWeb.Endpoint,
+       url: [
+         host: "localhost"
+       ],
+       secret_key_base: "5ACtsabgQEmBOTXTYSEaAI4IrJ1LclDsvKRnR+BltFGIoLpsly6jitCqkHCStWmB",
+       render_errors: [
+         view: SlingWeb.ErrorView,
+         accepts: ~w(json)
+       ],
+       pubsub: [
+         name: Sling.PubSub,
+         adapter: Phoenix.PubSub.PG2
+       ]
+
+config :sling, Sling.Auth.Guardian,
+       issuer: "sling",
+       secret_key: System.get_env("GUARDIAN_SECRET_KEY")
 
 # Configures Elixir's Logger
-config :logger, :console,
-  format: "$time $metadata[$level] $message\n",
-  metadata: [:request_id]
+config :logger,
+       :console,
+       format: "$time $metadata[$level] $message\n",
+       metadata: [:request_id]
 
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
