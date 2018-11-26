@@ -12,6 +12,7 @@ defmodule SlingWeb.Router do
   scope "/api", SlingWeb do
     pipe_through :api
     post("/users", UserController, :create )
+    post("/sessions", SessionController, :create)
   end
 
 end
