@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "bs-axios": "^0.0.39",
+    "bs-json": "^1.0.1",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
     "reason-scripts": "1.0.0"
