@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@glennsl/bs-json": "^3.0.0",
     "bs-axios": "^0.0.39",
     "bs-json": "^1.0.1",
     "react": "^16.6.3",

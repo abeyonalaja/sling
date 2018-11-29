@@ -28,19 +28,15 @@ let loginUser = (event, {ReasonReact.state, send}) => {
   let reduceByAuthResult = (_status, jsonPayload) =>
     jsonPayload
     |> Js.Promise.then_(json => {
-         let newUser = JsonREquest.checkForErrors(json);
+         let newUser = JsonRequests.checkForErrors(json);
          let updateState =
            switch (newUser) {
-           | Some(errors) => {
-               ...state,
-               hasValidatonError: true,
-               errorList: errors > JsonRequests.convertErrorsToList,
-             }
+           | Some(errors) => {...state, hasValidationError: true}
            | None =>
              let loggedIn = JsonRequests.parseNewUser(json);
              Effects.saveTokenToStorage(loggedIn.user.token);
-             Effects.saveUserToStorage(loggedIn.user.username, loggedIn.user.bio);
-             DirectorRe.setRoute(route, "/home");
+             Effects.saveUserToStorage(loggedIn.user.username);
+           /*DirectorRe.setRoute(route, "/home");*/
            };
          let callLoginReducer = _payload => Login((updatedState.hasValidationError, updatedState.errorList));
          send(callLoginReducer, ()) |> Js.Promise.resolve;

@@ -30,7 +30,7 @@ let mapUrlToRoute = (url: ReasonReact.Router.url) =>
 
 let initialState = () => {route: ReasonReact.Router.dangerouslyGetInitialUrl() |> mapUrlToRoute};
 let component = ReasonReact.reducerComponent("App");
-let make = (~message, _children) => {
+let make = _children => {
   ...component,
   reducer,
   initialState,

@@ -1,8 +1,6 @@
 type user = {
   id: int,
   email: string,
-  createdAt: string,
-  updatedAt: string,
   username: string,
   token: string,
 };
