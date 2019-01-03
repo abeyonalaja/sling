@@ -8,6 +8,7 @@ type route =
   | Home
   | Users
   | User(int)
+  | Login
   | NotFound;
 
 type state = {route};
@@ -25,6 +26,7 @@ let mapUrlToRoute = (url: ReasonReact.Router.url) =>
   | [] => Home
   | ["users", id] => User(int_of_string(id))
   | ["users"] => Users
+  | ["login"] => Login
   | _ => NotFound
   };
 
@@ -39,12 +41,14 @@ let make = _children => {
       <a href="/"> {str("Home")} </a>
       <a href="/users/1"> {str("User")} </a>
       <a href="/users"> {str("Users")} </a>
+      <a href="/login"> {str("Login")} </a>
       <div>
         {
           switch (state.route) {
           | Home => <Home />
           | User(id) => <UserPage id />
           | Users => <UserListPage />
+          | Login => <Login />
           | NotFound => <NotFound />
           }
         }
